@@ -30,13 +30,13 @@ const App = () => {
           }`}>
           <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
           <main className="flex-1 flex overflow-auto">
-  <div className="flex-1 overflow-auto">
-    <Editor />
-  </div>
-  <div className="flex-1 overflow-auto">
-    <Preview />
-  </div>
-</main>
+            <div className="flex-1 overflow-auto">
+              <Editor />
+            </div>
+            <div className="flex-1 overflow-auto">
+              <Preview />
+            </div>
+          </main>
         </div>
       </div>
     </ThemeProvider>
