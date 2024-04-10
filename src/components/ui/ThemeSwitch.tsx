@@ -4,11 +4,16 @@ import LightModeIcon from "../../assets/icon-light-mode.svg";
 import DarkModeIcon from "../../assets/icon-dark-mode.svg";
 import "./ThemeSwitch.css";
 
-const ThemeSwitch = () => {
+interface ThemeSwitchProps {
+  toggleTheme: () => void;
+}
+
+const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ toggleTheme }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleTheme = () => {
+  const handleThemeChange = () => {
     setIsDarkMode(!isDarkMode);
+    toggleTheme();
   };
 
   return (
@@ -23,7 +28,7 @@ const ThemeSwitch = () => {
           id="themeSwitch"
           type="checkbox"
           checked={isDarkMode}
-          onChange={toggleTheme}
+          onChange={handleThemeChange}
         />
         <span className="slider round"></span>
       </label>
