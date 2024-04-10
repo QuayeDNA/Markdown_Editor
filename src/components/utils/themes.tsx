@@ -13,7 +13,7 @@ const lightTheme: Theme = {
 };
 
 const darkTheme: Theme = {
-  body: '#000',
+  body: '#151619',
   text: '#FFF',
   // Add other dark theme colors here
 };
