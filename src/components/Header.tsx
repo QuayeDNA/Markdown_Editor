@@ -5,10 +5,19 @@ import DeleteIcon from "../assets/icon-delete.svg"; // Import the SVG icon
 import SaveIcon from "../assets/icon-save.svg"; // Import the SVG icon
 import CloseIcon from "../assets/icon-close.svg"; // Import the SVG icon
 
+import styled from 'styled-components';
+
+const HeaderWrapper = styled.header`
+  background: ${props => props.theme.background};
+  color: ${props => props.theme.text};
+  border: 1px solid ${props => props.theme.border};
+`;
+
 const Header = ({ toggleSidebar, sidebarOpen }: { toggleSidebar: () => void, sidebarOpen: boolean }) => {
   return (
+    <HeaderWrapper>
     <header className="flex items-center justify-between bg-gray-800 text-white h-20">
-      <div className="flex items-center space-x-4 p-2">
+      <div className="flex items-center space-x-4">
         <button onClick={toggleSidebar} className="bg-gray-700 h-20 w-20 flex items-center justify-center">
           <img src={sidebarOpen ? CloseIcon : MenuIcon} alt="Menu" />
         </button>
@@ -31,6 +40,7 @@ const Header = ({ toggleSidebar, sidebarOpen }: { toggleSidebar: () => void, sid
         </div>
       </div>
     </header>
+  </HeaderWrapper>
   );
 };
 
