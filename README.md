@@ -1,35 +1,53 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# Markdown Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a Markdown editor built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project has the following structure:
 
-## Expanding the ESLint configuration
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── public/
+├── README.md
+├── src/
+│   ├── App.css
+│   ├── App.tsx
+│   ├── assets/
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── ui/
+│   │       ├── button.tsx
+│   │       ├── ThemeSwitch.css
+│   │       └── ThemeSwitch.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## Progress
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Set up the project with Vite, React, TypeScript, and Tailwind CSS.
+- Created the `Header` and `Sidebar` components.
+- Set up ESLint for linting TypeScript and React code.
+- Configured Tailwind CSS for styling.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-=======
-# Markdown_Editor
-An in-browser markdown editor
->>>>>>> edd67f13e12ead233c8045b07ad3af242d5ee3ba
+## Scripts
+
+- `npm run dev`: Start the development server.
+- `npm run build`: Build the project for production.
+- `npm run lint`: Lint the project's code.
+- `npm run preview`: Preview the production build.
+
+## Future Work
+
+- Implement the Markdown editor functionality.
+- Add more UI components as needed.
+- Improve the project's styling with Tailwind CSS.
