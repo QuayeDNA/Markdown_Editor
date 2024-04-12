@@ -11,8 +11,9 @@ interface AppProps {
 }
 
 const App: React.FC<AppProps> = () => {
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false); // Set the state type to boolean
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<string>("light");
+  const [selectedContent, setSelectedContent] = useState('');
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -32,7 +33,7 @@ const App: React.FC<AppProps> = () => {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
       <div className="relative h-screen flex overflow-hidden">
-        <Sidebar isOpen={sidebarOpen} toggleTheme={toggleTheme} />
+        <Sidebar isOpen={sidebarOpen} toggleTheme={toggleTheme} setSelectedContent={setSelectedContent} />
         <div
           className={`flex flex-col w-full transition-transform duration-200 ease-in-out ${
             sidebarOpen ? "transform translate-x-64" : ""
@@ -40,10 +41,10 @@ const App: React.FC<AppProps> = () => {
           <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
           <main className="flex-1 flex overflow-auto">
             <div className="flex-1">
-              <Editor content={content} onContentChange={handleContentChange} />
+              <Editor content={selectedContent} onContentChange={handleContentChange} />
             </div>
             <div className="flex-1">
-              <Preview content={content} />
+              <Preview content={selectedContent} />
             </div>
           </main>
         </div>
