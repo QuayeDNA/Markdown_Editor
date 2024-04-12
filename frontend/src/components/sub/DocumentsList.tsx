@@ -4,16 +4,10 @@ import DocumentButton from '../ui/button';
 interface Document {
   createdAt: string;
   name: string;
-  content: string;
 }
 
-interface DocumentListProps {
-  setSelectedContent: (content: string) => void;
-}
-
-const DocumentList: React.FC<DocumentListProps> = ({ setSelectedContent }) => {
+const DocumentList: React.FC = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
-
 
   useEffect(() => {
     fetch('data.json')
@@ -23,14 +17,8 @@ const DocumentList: React.FC<DocumentListProps> = ({ setSelectedContent }) => {
 
   return (
     <div>
-      {documents.map((doc) => (
-        <DocumentButton
-          key={doc.name}
-          createdAt={doc.createdAt}
-          name={doc.name}
-          content={doc.content}
-          onClick={() => setSelectedContent(doc.content)}
-        />
+      {documents.map((doc, index) => (
+        <DocumentButton key={index} createdAt={doc.createdAt} name={doc.name} />
       ))}
     </div>
   );
