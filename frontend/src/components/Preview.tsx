@@ -20,7 +20,7 @@ const Preview: React.FC<PreviewProps> = ({ content }) => {
         <div>Preview</div>
         <img src={ShowPreviewIcon} alt="Show Preview" />
       </header>
-      <div className="w-full h-full p-4 overflow-auto border border-gray-300 pt-16">
+      <div className="w-full h-full p-4 overflow-auto pt-4">
       <StyledMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}

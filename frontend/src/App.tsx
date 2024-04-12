@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme, GlobalStyle } from "./components/utils/themes";
 import Header from "./components/Header";
@@ -13,15 +13,20 @@ interface AppProps {
 
 const App: React.FC<AppProps> = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false); // Set the state type to boolean
-  const [theme, setTheme] = useState<string>("light");
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'light');
+
+useEffect(() => {
+  localStorage.setItem('theme', theme);
+}, [theme]);
+
+const toggleTheme = () => {
+  setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+};
 
   const [content, setContent] = useState("");
 
@@ -40,10 +45,10 @@ const App: React.FC<AppProps> = () => {
           }`}>
           <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
           <main className="flex-1 flex overflow-auto">
-            <div className="flex-1">
+            <div className="w-1/2 h-full overflow-auto">
               <Editor content={content} onContentChange={handleContentChange} />
             </div>
-            <div className="flex-1">
+            <div className="w-1/2 h-full overflow-auto">
               <Preview content={content} />
             </div>
           </main>

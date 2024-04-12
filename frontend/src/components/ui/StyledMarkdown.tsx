@@ -9,10 +9,10 @@ const StyledMarkdown = styled(ReactMarkdown)`
   }
   & h2 {
     font-size: 1.5em;
-    font-weight: bold;
+    font-weight: ;
   }
   & h3 {
-    font-size: 1.17em;
+    font-size: 1.25em;
     font-weight: bold;
   }
   & h4 {
@@ -20,11 +20,11 @@ const StyledMarkdown = styled(ReactMarkdown)`
     font-weight: bold;
   }
   & h5 {
-    font-size: 0.83em;
+    font-size: 0.8em;
     font-weight: bold;
   }
   & h6 {
-    font-size: 0.67em;
+    font-size: 0.65em;
     font-weight: bold;
   }
   & p {
@@ -46,7 +46,10 @@ const StyledMarkdown = styled(ReactMarkdown)`
   & blockquote {
     font-size: 0.9em;
     font-style: italic;
-    border-left: 4px solid #ccc;
+    background-color: ${({ theme }) => (theme.mode === "darkTheme" ? "#333" : "#f5f5f5")};
+    padding: 0.5em;
+    border-radius: 3px;
+    border-left: 4px solid #E46643;
     padding-left: 1em;
     margin-left: 0;
   }

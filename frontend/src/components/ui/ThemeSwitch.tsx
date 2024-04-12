@@ -2,7 +2,7 @@
 import { useState } from "react";
 import LightModeIcon from "../../assets/icon-light-mode.svg";
 import DarkModeIcon from "../../assets/icon-dark-mode.svg";
-import "./ThemeSwitch.css";
+import "../css/ThemeSwitch.css";
 
 interface ThemeSwitchProps {
   toggleTheme: () => void;
