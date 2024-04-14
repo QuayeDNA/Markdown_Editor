@@ -1,12 +1,44 @@
-/* Define a class to hide the Preview component on small screens */
-.hidden-on-small {
-    display: none;
+.main-container {
+  display: grid;
+  overflow-x: hidden;
+}
+
+.editor-container,
+.preview-container {
+  grid-area: 1 / 1;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.editor-container {
+  z-index: 2;
+  transform: translateX(0);
+}
+
+.preview-container {
+  z-index: 1;
+  transform: translateX(100%);
+}
+
+.translate-x-negative {
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+.translate-x-zero {
+  transform: translateX(0);
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    display: flex; /* Switch back to flex layout */
   }
-  
-  /* Define a media query to display the Preview component on medium screens and larger */
-  @media (min-width: 768px) {
-    .hidden-on-small {
-      display: block;
-    }
+
+  .editor-container,
+  .preview-container {
+    transform: none;
+    width: 50%;
+    grid-area: unset; /* Reset grid positioning */
   }
-  
+}
