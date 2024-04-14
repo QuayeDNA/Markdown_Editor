@@ -15,9 +15,15 @@ interface AppProps {
 const App: React.FC<AppProps> = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 const [previewActive, setPreviewActive] = useState(false);
+const [previewFull, setPreviewFull] = useState(false);
 
+// Modify the togglePreview function
 const togglePreview = () => {
-  setPreviewActive(!previewActive);
+  if (window.innerWidth > 768) { // Check if the screen is larger
+    setPreviewFull(!previewFull); // Toggle the previewFull state
+  } else {
+    setPreviewActive(!previewActive); // Existing functionality
+  }
 };
 
   
@@ -57,16 +63,16 @@ const togglePreview = () => {
           <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
           {/*/////////////////////////////////////////////////////////////////////*/}
       <main className="main-container">
-  <div className={`editor-container ${previewActive ? 'translate-x-negative' : ''}`}>
-    <Editor
-      content={content}
-      onContentChange={handleContentChange}
-      onPreviewIconClick={togglePreview}
-    />
-  </div>
-  <div className={`preview-container ${previewActive ? 'translate-x-zero' : ''}`}>
-    <Preview content={content} onPreviewIconClick={togglePreview} />
-  </div>
+ <div className={`editor-container ${previewActive ? 'translate-x-negative' : ''} ${previewFull ? 'translate-x-full-negative' : ''}`}>
+  <Editor
+    content={content}
+    onContentChange={handleContentChange}
+    onPreviewIconClick={togglePreview}
+  />
+</div>
+<div className={`preview-container ${previewActive ? 'translate-x-zero' : ''} ${previewFull ? 'editor-off' : ''}`}>
+  <Preview content={content} onPreviewIconClick={togglePreview} />
+</div>
 </main>
 
           {/*/////////////////////////////////////////////////////////////////////*/}
