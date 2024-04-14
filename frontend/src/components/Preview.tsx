@@ -1,7 +1,5 @@
 import React from 'react';
-import ShowPreviewIcon from "../assets/icon-show-preview.svg";
-import { useTheme } from 'styled-components';
-
+import Header from './sub/headerComponent';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw'; 
 
@@ -9,17 +7,14 @@ import StyledMarkdown from './ui/StyledMarkdown';
 
 interface PreviewProps {
   content: string;
+  onPreviewIconClick: () => void;
 }
 
-const Preview: React.FC<PreviewProps> = ({ content }) => {
-  const theme = useTheme();
+const Preview: React.FC<PreviewProps> = ({ content, onPreviewIconClick }) => {
   
   return (
-    <div className='h-full'>
-      <header className="w-full h-12 flex items-center justify-between p-4 sticky top-0" style={{ backgroundColor: theme.headerBg, color: theme.headerText }}>
-        <div>Preview</div>
-        <img src={ShowPreviewIcon} alt="Show Preview" />
-      </header>
+    <div className='border-l-2 border-gray-400 flex flex-col h-full'>
+     <Header headerName="Preview" onPreviewIconClick={onPreviewIconClick} calledFrom='Preview'/>
       <div className="w-full h-full p-4 overflow-auto pt-4">
       <StyledMarkdown
         remarkPlugins={[remarkGfm]}

@@ -1,11 +1,17 @@
+/** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  media: false, // or 'media' or 'class'
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: 'class',
   theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'roboto-slab': ['"Roboto Slab"', 'serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'roboto-mono': ['"Roboto Mono"', 'monospace'],
+      },
+      
+    },
   },
   plugins: [],
 }
+

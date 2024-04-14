@@ -1,0 +1,12 @@
+/* Define a class to hide the Preview component on small screens */
+.hidden-on-small {
+    display: none;
+  }
+  
+  /* Define a media query to display the Preview component on medium screens and larger */
+  @media (min-width: 768px) {
+    .hidden-on-small {
+      display: block;
+    }
+  }
+  
