@@ -5,7 +5,8 @@ import DeleteIcon from "../assets/icon-delete.svg"; // Import the SVG icon
 import SaveIcon from "../assets/icon-save.svg"; // Import the SVG icon
 import CloseIcon from "../assets/icon-close.svg"; // Import the SVG icon
 import "./css/Header.css";
-
+import { useSelector } from 'react-redux';
+import { Document } from '../redux/documentSlice';
 import Modal from "./ui/modal";
 import EditableDocName from "./sub/EditableDocName";
 
@@ -20,6 +21,8 @@ const Header = ({
   const handleDeleteClick = () => {
     setIsModalOpen(true);
   };
+
+  const currentDocument: Document = useSelector((state: { documents: { currentDocument: Document } }) => state.documents.currentDocument);
 
   return (
     <header
@@ -42,7 +45,7 @@ const Header = ({
           <div className="font-roboto font-thin text-sm text-gray-300">
             Document name
           </div>
-          <EditableDocName initialName="Untitled.md" />
+          <EditableDocName initialName={currentDocument ? currentDocument.name : 'Untitled.md'} />
         </div>
       </div>
       <div className="flex items-center space-x-4">

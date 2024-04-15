@@ -17,6 +17,7 @@ const App: React.FC<AppProps> = () => {
 const [previewActive, setPreviewActive] = useState(false);
 const [previewFull, setPreviewFull] = useState(false);
 
+// localStorage.clear();
 // Modify the togglePreview function
 const togglePreview = () => {
   if (window.innerWidth > 768) { // Check if the screen is larger
@@ -41,12 +42,6 @@ const togglePreview = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  const [content, setContent] = useState("");
-
-  const handleContentChange = (newContent: string) => {
-    setContent(newContent);
-  };
-
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
@@ -65,13 +60,12 @@ const togglePreview = () => {
       <main className="main-container">
  <div className={`editor-container ${previewActive ? 'translate-x-negative' : ''} ${previewFull ? 'translate-x-full-negative' : ''}`}>
   <Editor
-    content={content}
-    onContentChange={handleContentChange}
+   
     onPreviewIconClick={togglePreview}
   />
 </div>
 <div className={`preview-container ${previewActive ? 'translate-x-zero' : ''} ${previewFull ? 'editor-off' : ''}`}>
-  <Preview content={content} onPreviewIconClick={togglePreview} />
+  <Preview onPreviewIconClick={togglePreview} />
 </div>
 </main>
 

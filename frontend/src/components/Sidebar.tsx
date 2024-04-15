@@ -4,6 +4,8 @@ import DocumentList from './sub/DocumentsList';
 import ThemeSwitch from './ui/ThemeSwitch';
 import "./css/Sidebar.css"
 
+import SaveButton from './ui/saveButton';
+
 const Sidebar = ({ isOpen, toggleTheme, toggleSidebar }: { isOpen: boolean; toggleTheme: () => void, toggleSidebar: () => void }) => {
   const ref = useRef<HTMLDivElement>(null); // Explicitly specify the type of ref
 
@@ -18,7 +20,7 @@ const Sidebar = ({ isOpen, toggleTheme, toggleSidebar }: { isOpen: boolean; togg
       <div className="flex flex-col h-full justify-between">
         <div>
           <div className="my-8 text-gray-400 text-sm">MY DOCUMENTS</div>
-          <button className="new-document flex items-center justify-center space-x-4 text-white w-full p-4 rounded-md" onClick={toggleSidebar}>+ New Document</button>
+         <SaveButton />
           <DocumentList />
         </div>
         <div className="mt-auto">
