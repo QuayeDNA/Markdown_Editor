@@ -1,8 +1,0 @@
-.new-document {
-    background-color: #E46643;
-    color: #FFF;
-}
-.new-document:hover {
-    background-color: #F39765;
-    transition: background-color 0.3s ease-in-out;
-}
