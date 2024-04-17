@@ -1,26 +1,29 @@
-// src/components/Editor.tsx
-import { useTheme } from "styled-components";
-import Header from "./sub/headerComponent";
-import { useSelector } from "react-redux";
-import { Document } from '.././redux/documentSlice'; // Update this line
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+
 
 interface EditorProps {
-  onPreviewIconClick: () => void;
+  setMarkdown: (markdown: string) => void;
+  markdown: string;
 }
 
-const Editor: React.FC<EditorProps> = ({ onPreviewIconClick }) => {
-  const currentDocument: Document = useSelector((state: { documents: { currentDocument: Document } }) => state.documents.currentDocument);
-
-  const theme = useTheme();
+const Editor: React.FC<EditorProps> = ({ setMarkdown }) => {
+  const [markdown, setMarkdownLocal] = useState('# Hello world');
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const handleMarkdownChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newMarkdown = e.target.value;
+    setMarkdownLocal(newMarkdown);
+    setMarkdown(newMarkdown);
+  };
+  
 
   return (
-    <div className="border-r-2 border-gray-400 flex flex-col h-full" style={{ backgroundColor: theme.body, color: theme.text }}>
-      <Header headerName="Editor" onPreviewIconClick={onPreviewIconClick} calledFrom="Editor"/>
+    <div className="flex h-full overflow-y-auto">
       <textarea
-        value={currentDocument.content}
-        placeholder="Write your Markdown here..."
-        style={{ backgroundColor: theme.body, color: theme.text, transition: "background-color 0.5s ease, color 0.5s ease" }}
-        className="p-6 flex-auto"
+         className={`font-roboto-mono  transition duration-300 flex-1 py-8 px-4 focus:outline-none  ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}
+        value={markdown}
+        onChange={handleMarkdownChange}
       />
     </div>
   );

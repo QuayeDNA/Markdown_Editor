@@ -1,31 +1,72 @@
-import { useRef } from 'react';
-import useOnClickOutside from './sub/useOnClickOutside';
-import DocumentList from './sub/DocumentsList';
-import ThemeSwitch from './ui/ThemeSwitch';
-import "./css/Sidebar.css"
+import DocumentIcon from "../assets/icon-document.svg";
+import ThemeSwitch from "./ui/themeSwitcher";
 
-import SaveButton from './ui/saveButton';
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/store';
+import { toggleSidebar } from '../redux/sidebarSlice';
 
-const Sidebar = ({ isOpen, toggleTheme, toggleSidebar }: { isOpen: boolean; toggleTheme: () => void, toggleSidebar: () => void }) => {
-  const ref = useRef<HTMLDivElement>(null); // Explicitly specify the type of ref
+const Sidebar: React.FC = () => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(ref, () => {
-    if (isOpen) {
-      toggleSidebar();
+  const handleClickOutside = (event: MouseEvent) => {
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+      dispatch(toggleSidebar());
     }
-  });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('mousedown', handleClickOutside);
+    } else {
+      window.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, dispatch]);
+
+  const documents = [
+    { id: "doc1", name: "Document 1", date: "01/01/2022" },
+    { id: "doc2", name: "Document 2", date: "02/02/2022" },
+    // Add more documents as needed
+  ];
 
   return (
-    <aside ref={ref} className={`w-64 fixed h-screen px-4 pb-4 transition-transform duration-200 ease-in-out ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-64'}`} style={{ backgroundColor: "#1D1F22" }}>
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <div className="my-8 text-gray-400 text-sm">MY DOCUMENTS</div>
-         <SaveButton />
-          <DocumentList />
-        </div>
-        <div className="mt-auto">
-          <ThemeSwitch toggleTheme={toggleTheme} />
-        </div>
+    <aside
+    ref={sidebarRef}
+      className={`flex flex-col justify-between w-64 bg-dark-2 fixed h-screen p-6 transition-transform duration-200 ease-in-out ${
+        isOpen ? "transform translate-x-0" : "transform -translate-x-64"
+      }`}>
+      <h1 className="mb-6 text-light text-md font-roboto font-bold tracking-extra-wide lg:hidden">
+        MARKDOWN
+      </h1>
+      <h2 className="text-lg font-roboto font-light text-grey-1 mb-6">
+        MY DOCUMENTS
+      </h2>
+      <button className="mb-6 bg-orange hover:bg-orange-light transition duration-200 p-4 rounded-lg text-light font-roboto text-lg">
+        + New Document
+      </button>
+      {documents.map((doc) => (
+        <button key={doc.id} className="flex items-center mb-6">
+          <img
+            src={DocumentIcon}
+            alt="Document icon"
+            className="mr-4 w-4 h-auto"
+          />
+          <div>
+            <span className="text-md font-roboto text-grey-1 ">{doc.date}</span>
+            <h3 className="text-light text-md hover:text-orange transition duration-200">
+              {doc.name}
+            </h3>
+          </div>
+        </button>
+      ))}
+      <div className="mt-auto flex items-center">
+        <ThemeSwitch />
       </div>
     </aside>
   );

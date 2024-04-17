@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
+interface StyledMarkdownProps {
+    isDarkMode: boolean;
+  }
+  
 
-const StyledMarkdown = styled(ReactMarkdown)`
+  const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
+  & code, & pre, & blockquote {
+    background-color: ${props => props.isDarkMode ? '#2b2d31ff' : '#f5f5f5'};
+    transition: background-color 0.3s;
+  };
   & h1 {
     font-size: 2em;
     font-weight: bold;
@@ -33,20 +41,18 @@ const StyledMarkdown = styled(ReactMarkdown)`
   }
   & code {
     font-size: 0.9em;
-    background-color: #f5f5f5;
+
     padding: 0.2em 0.4em;
     border-radius: 3px;
   }
   & pre {
     font-size: 0.9em;
-    background-color: #f5f5f5;
     padding: 0.5em;
     border-radius: 3px;
   }
   & blockquote {
     font-size: 0.9em;
-    font-style: italic;
-    background-color: ${({ theme }) => (theme.mode === "darkTheme" ? "#333" : "#f5f5f5")};
+    font-weight: bold;
     padding: 0.5em;
     border-radius: 3px;
     border-left: 4px solid #E46643;
@@ -93,7 +99,7 @@ const StyledMarkdown = styled(ReactMarkdown)`
   }
   & a {
     color: #0070f3;
-    text-decoration: none;
+    text-decoration: underline;
   }
   & a:hover {
     text-decoration: underline;

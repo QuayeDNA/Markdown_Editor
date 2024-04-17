@@ -1,19 +1,22 @@
 // src/components/ThemeSwitch.tsx
-import { useState } from "react";
 import LightModeIcon from "../../assets/icon-light-mode.svg";
 import DarkModeIcon from "../../assets/icon-dark-mode.svg";
-import "../css/ThemeSwitch.css";
+import "./styles/themeSwitcher.css";
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { toggleTheme } from '../../redux/themeSlice';
 
 interface ThemeSwitchProps {
-  toggleTheme: () => void;
+  
 }
 
-const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ toggleTheme }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const ThemeSwitch: React.FC<ThemeSwitchProps> = () => {
+  const dispatch = useDispatch();
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   const handleThemeChange = () => {
-    setIsDarkMode(!isDarkMode);
-    toggleTheme();
+    dispatch(toggleTheme());
   };
 
   return (
@@ -21,7 +24,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ toggleTheme }) => {
       <img
         src={LightModeIcon}
         alt="Light mode icon"
-        className={isDarkMode ? "" : "filter brightness-0 invert"}
+        className={`transition-colors duration-200 ${isDarkMode ? "" : "filter brightness-0 invert"}`}
       />
       <label className="switch" htmlFor="themeSwitch">
         <input
@@ -35,7 +38,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ toggleTheme }) => {
       <img
         src={DarkModeIcon}
         alt="Dark mode icon"
-        className={isDarkMode ? "filter brightness-0 invert" : ""}
+        className={`transition-colors duration-200 ${isDarkMode ? "filter brightness-0 invert" : ""}`}
       />
     </div>
   );

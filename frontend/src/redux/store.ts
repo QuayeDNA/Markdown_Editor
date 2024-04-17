@@ -1,13 +1,20 @@
-// store.ts
+// src/redux/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import documentsReducer from './documentSlice';
+import sidebarReducer from './sidebarSlice';
+import themeReducer from './themeSlice';
+import previewReducer from './previewSlice';
+import scrollReducer from './scrollSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    documents: documentsReducer,
+    sidebar: sidebarReducer,
+    theme: themeReducer,
+    preview: previewReducer,
+    scroll: scrollReducer,
   },
 });
 
-// Typescript type for use throughout your app
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export default store;
