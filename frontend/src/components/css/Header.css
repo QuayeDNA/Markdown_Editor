@@ -1,0 +1,18 @@
+/* Add this to your CSS file */
+.menu-button {
+    color: initial;
+    background-color: #35393F;
+  }
+  
+  .menu-button:hover {
+    background-color: #E46643;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .save-button {
+    background-color: #E46643;
+  }
+  .save-button:hover{
+    background-color: #F39765;
+    transition: background-color 0.3s ease-in-out;
+  }
