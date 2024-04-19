@@ -1,76 +1,48 @@
-// documentsSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+// src/redux/documentSlice.ts
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
-
-export interface Document { // Add export here
-  createdAt: string;
+interface Document {
+  id: string;
   name: string;
   content: string;
-  readonly?: boolean;
+  createdAt: string;
 }
 
 interface DocumentState {
-  currentDocument: Document;
   documents: Document[];
+  currentDocument: Document | null;
 }
 
-const storedDocuments = JSON.parse(localStorage.getItem('documents') ?? '[]');
-const storedTempDocuments = JSON.parse(localStorage.getItem('tempDocuments') ?? '[]');
-const storedCurrentDocument = JSON.parse(localStorage.getItem('currentDocument') ?? '{}');
-
 const initialState: DocumentState = {
-  currentDocument: storedTempDocuments.length > 0 ? storedTempDocuments[0] : storedCurrentDocument,
-  documents: storedDocuments,
+  documents: [],
+  currentDocument: null,
 };
 
-export const documentsSlice = createSlice({
+const documentSlice = createSlice({
   name: 'documents',
   initialState,
   reducers: {
+    loadDocuments: (state) => {
+      const savedDocuments = localStorage.getItem('documents');
+      if (savedDocuments) {
+        state.documents = JSON.parse(savedDocuments);
+      }
+    },
     createDocument: (state) => {
-      const newDocument = {
-        createdAt: new Date().toISOString().split('T')[0],
-        name: 'Untitled Document',
-        content: '# Welcome to Markdown\n\nClick to start writing.',
+      const newDocument: Document = {
+        id: Date.now().toString(), // Use the current timestamp as a unique ID
+        name: 'New Document',
+        content: '',
+        createdAt: new Date().toISOString(),
       };
       state.documents.push(newDocument);
       localStorage.setItem('documents', JSON.stringify(state.documents));
-
-      // Log a message when a document is created
-      console.log(`Document created: ${newDocument.name}`);
     },
-    setDocuments: (state, action: PayloadAction<Document[]>) => {
-      state.documents = action.payload;
-    },
-    setCurrentDocument: (state, action: PayloadAction<Document>) => {
-      state.currentDocument = action.payload;
-    },
-    updateDocumentContent: (state, action: PayloadAction<string>) => {
-      if (state.currentDocument) {
-        state.currentDocument.content = action.payload;
-      }
-    },
-    saveDocument: (state, action: PayloadAction<Document>) => {
-      const updatedDocument = action.payload;
-      state.documents = state.documents.map(document =>
-        document.name === updatedDocument.name ? updatedDocument : document
-      );
-      localStorage.setItem('documents', JSON.stringify(state.documents));
-    },
-    tempSaveDocument: (state, action: PayloadAction<Document>) => {
-      const updatedDocument = action.payload;
-      state.currentDocument = updatedDocument;
-      state.documents = state.documents.map(document =>
-        document.name === updatedDocument.name ? updatedDocument : document
-      );
-      localStorage.setItem('tempDocuments', JSON.stringify(state.documents));
-      setTimeout(() => {
-        localStorage.removeItem('tempDocuments');
-      }, 60000); // Remove changes after 1 minute
-    },
+    // Other reducers...
   },
 });
 
-export const { createDocument, setDocuments, setCurrentDocument, updateDocumentContent, saveDocument, tempSaveDocument } = documentsSlice.actions;
-
-export default documentsSlice.reducer;
+export const { loadDocuments, createDocument } = documentSlice.actions;
+export const selectDocuments = (state: RootState) => state.document.documents;
+export default documentSlice.reducer;

@@ -4,6 +4,7 @@ import sidebarReducer from './sidebarSlice';
 import themeReducer from './themeSlice';
 import previewReducer from './previewSlice';
 import scrollReducer from './scrollSlice';
+import documentReducer from './documentSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     theme: themeReducer,
     preview: previewReducer,
     scroll: scrollReducer,
+    document: documentReducer,
   },
 });
 

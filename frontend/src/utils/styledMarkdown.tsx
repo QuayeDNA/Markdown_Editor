@@ -40,8 +40,7 @@ interface StyledMarkdownProps {
     line-height: 1.5;
   }
   & code {
-    font-size: 0.9em;
-
+    font-size: 1em;
     padding: 0.2em 0.4em;
     border-radius: 3px;
   }
@@ -51,7 +50,7 @@ interface StyledMarkdownProps {
     border-radius: 3px;
   }
   & blockquote {
-    font-size: 0.9em;
+    font-size: 1.2em;
     font-weight: bold;
     padding: 0.5em;
     border-radius: 3px;

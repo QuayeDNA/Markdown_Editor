@@ -1,3 +1,4 @@
+import { useState } from "react";
 import MenuIcon from "../assets/icon-menu.svg";
 import DocumentIcon from "../assets/icon-document.svg";
 import DeleteIcon from "../assets/icon-delete.svg";
@@ -9,17 +10,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { toggleSidebar } from '../redux/sidebarSlice';
 
+import Modal from "./ui/modal";
+
 const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
 
-  const handleDelete = () => {
-    console.log("Delete button clicked");
-  };
 
   const handleSave = () => {
     console.log("Save button clicked");
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleDelete = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <header className="flex justify-between items-center bg-dark-3 top-0 left-0 right-0 h-20 sticky z-10">
       <div className="flex items-center">
@@ -52,6 +58,7 @@ const Navbar: React.FC = () => {
           <span className="text-light text-md hidden md:block">Save Changes</span>
         </button>
       </div>
+      {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
     </header>
   );
 };
