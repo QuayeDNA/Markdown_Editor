@@ -5,6 +5,7 @@ import themeReducer from './themeSlice';
 import previewReducer from './previewSlice';
 import scrollReducer from './scrollSlice';
 import documentReducer from './documentSlice';
+import editorSlice from './editorSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     preview: previewReducer,
     scroll: scrollReducer,
     document: documentReducer,
+    editor: editorSlice
   },
 });
 

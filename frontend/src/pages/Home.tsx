@@ -9,7 +9,7 @@ import Sidebar from "../components/Sidebar";
 import ShowPreviewIcon from "../assets/icon-show-preview.svg";
 import HidePreviewIcon from "../assets/icon-hide-preview.svg";
 
-import MarkdownEditor from "../components/Editor";
+import Editor from "../components/Editor";
 import Preview from "../components/Preview";
 
 const Home: React.FC = () => {
@@ -19,6 +19,7 @@ const Home: React.FC = () => {
   const isPreviewExpanded = useSelector(
     (state: RootState) => state.preview.isPreviewExpanded
   );
+ const [documentContent, setDocumentContent] = useState('');
 
   const handlePreviewClick = () => {
     console.log("Preview button clicked");
@@ -26,8 +27,6 @@ const Home: React.FC = () => {
   };
 
   console.log("isPreviewExpanded:", isPreviewExpanded);
-
-  const [markdown, setMarkdown] = useState("# Hello world");
 
   return (
     <div
@@ -59,7 +58,7 @@ const Home: React.FC = () => {
               </button>
             </header>
             <div className="w-full overflow-y-auto" style={{ height: 'calc(100vh - 128px)' }}>
-  <MarkdownEditor markdown={markdown} setMarkdown={setMarkdown} />
+            <Editor setDocumentContent={setDocumentContent} />
 </div>
           </div>
           <div
@@ -83,7 +82,7 @@ const Home: React.FC = () => {
               </button>
             </header>
             <div className="w-full overflow-y-auto" style={{ height: 'calc(100vh - 128px)' }}>
-              <Preview markdown={markdown} />
+              <Preview content={documentContent} />
             </div>
           </div>
         </main>

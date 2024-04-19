@@ -6,13 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { toggleSidebar } from "../redux/sidebarSlice";
 
-import { createDocument, selectDocuments, loadDocuments } from "../redux/documentSlice";
+import {
+  createDocument,
+  selectDocuments,
+  loadDocuments,
+  setCurrentDocument,
+} from "../redux/documentSlice";
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch();
   const documents = useSelector(selectDocuments);
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const currentDocument = useSelector((state: RootState) => state.document.currentDocument);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -58,20 +64,24 @@ const Sidebar: React.FC = () => {
         + New Document
       </button>
       {documents.map((doc) => (
-        <button key={doc.id} className="flex items-center mb-6">
+        <button
+          key={doc.id}
+          className="flex items-center mb-6"
+          onClick={() => dispatch(setCurrentDocument(doc.id as never))}
+        >
           <img
             src={DocumentIcon}
             alt="Document icon"
             className="mr-4 w-4 h-auto"
           />
           <div className="text-left">
-  <span className="text-md font-roboto text-grey-1 ">
-    {new Date(doc.createdAt).toLocaleDateString()}
-  </span>
-  <h3 className="text-light text-md hover:text-orange transition duration-200">
-    {doc.name}
-  </h3>
-</div>
+            <span className="text-md font-roboto text-grey-1">
+              {new Date(doc.createdAt).toLocaleDateString()}
+            </span>
+            <h3 className={`text-md hover:text-orange transition duration-200 ${currentDocument && currentDocument.id === doc.id ? 'text-orange-light' : 'text-light'}`}>
+              {doc.name}
+            </h3>
+          </div>
         </button>
       ))}
       <div className="mt-auto flex items-center">

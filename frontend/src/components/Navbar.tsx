@@ -10,15 +10,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { toggleSidebar } from '../redux/sidebarSlice';
 
+
 import Modal from "./ui/modal";
 
 const Navbar: React.FC = () => {
   const dispatch = useDispatch();
+  const documents = useSelector((state: RootState) => state.document.documents);
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
 
 
-  const handleSave = () => {
-    console.log("Save button clicked");
+  const handleSaveChanges = () => {
+    localStorage.setItem('documents', JSON.stringify(documents));
+    console.log('Documents saved');
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,7 +56,7 @@ const Navbar: React.FC = () => {
         </button>
         <button
           className="flex flex-row items-center m-4 p-4 bg-orange rounded-md hover:bg-orange-light transition duration-200"
-          onClick={handleSave}>
+          onClick={handleSaveChanges}>
           <img src={SaveIcon} alt="Save icon" className="h-4 w-auto me-2" />
           <span className="text-light text-md hidden md:block">Save Changes</span>
         </button>

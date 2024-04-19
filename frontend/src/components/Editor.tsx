@@ -1,29 +1,28 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import React, { useState, useEffect } from 'react';
 
 
 interface EditorProps {
-  setMarkdown: (markdown: string) => void;
-  markdown: string;
+  setDocumentContent: React.Dispatch<React.SetStateAction<string>>;
 }
+const Editor: React.FC<EditorProps> = ({ setDocumentContent }) => {
 
-const Editor: React.FC<EditorProps> = ({ setMarkdown }) => {
-  const [markdown, setMarkdownLocal] = useState('# Hello world');
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const [content, setContent] = useState('');
+  useEffect(() => {
+    setDocumentContent(content);
+  }, [content, setDocumentContent]);
+ 
+
   const handleMarkdownChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newMarkdown = e.target.value;
-    setMarkdownLocal(newMarkdown);
-    setMarkdown(newMarkdown);
+    setContent(e.target.value);
   };
-  
 
   return (
     <div className="flex h-full overflow-y-auto">
       <textarea
-         className={`font-roboto-mono  transition duration-300 flex-1 py-8 px-4 focus:outline-none  ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}
-        value={markdown}
+        className="font-roboto-mono transition duration-300 flex-1 py-8 px-4 focus:outline-none bg-light text-grey-3"
+        value={content}
         onChange={handleMarkdownChange}
+        placeholder='Enter your markdown here...'
       />
     </div>
   );
