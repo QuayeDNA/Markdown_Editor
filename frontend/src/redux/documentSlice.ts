@@ -18,6 +18,10 @@ interface UpdateDocumentNamePayload {
   name: string;
 }
 
+interface DeleteDocumentPayload {
+  id: string;
+}
+
 interface Document {
   id: string;
   name: string;
@@ -54,29 +58,32 @@ const documentSlice = createSlice({
   reducers: {
     updateDocumentContent: (state, action: PayloadAction<UpdateDocumentContentPayload>) => {
       const { id, content } = action.payload;
+      // Update content in state.documents
       const documentIndex = state.documents.findIndex(doc => doc.id === id);
       if (documentIndex !== -1) {
         state.documents[documentIndex].content = content;
-        // Add type assertion to ensure selectedDocument is treated as Document
-        if ((state.selectedDocument as Document)?.id === id) {
-          (state.selectedDocument as Document).content = content;
+        // Update selectedDocument if it matches the updated document
+        if (state.selectedDocument?.id === id) {
+          state.selectedDocument.content = content;
         }
         localStorage.setItem('documents', JSON.stringify(state.documents));
       }
     },
     updateDocumentName: (state, action: PayloadAction<UpdateDocumentNamePayload>) => {
       const { id, name } = action.payload;
+      // Update name in state.documents
       const documentIndex = state.documents.findIndex(doc => doc.id === id);
       if (documentIndex !== -1) {
         state.documents[documentIndex].name = name;
-        // Add type assertion to ensure selectedDocument is treated as Document
-        if ((state.selectedDocument as Document)?.id === id) {
-          (state.selectedDocument as Document).name = name;
+        // Update selectedDocument if it matches the updated document
+        if (state.selectedDocument?.id === id) {
+          state.selectedDocument.name = name;
         }
         localStorage.setItem('documents', JSON.stringify(state.documents));
       }
     },
     createDocument(state) {
+      // Create a new document
       const newDocument: Document = {
         id: Date.now().toString(),
         name: 'Untitled',
@@ -87,8 +94,20 @@ const documentSlice = createSlice({
       localStorage.setItem('documents', JSON.stringify(state.documents));
     },
     selectDocument: (state, action: PayloadAction<string>) => {
+      // Select a document by ID
       state.selectedDocument = state.documents.find(doc => doc.id === action.payload) || null;
     },
+    deleteDocument: (state, action: PayloadAction<DeleteDocumentPayload>) => {
+        const { id } = action.payload;
+        // Remove the document with the specified ID from state.documents
+        state.documents = state.documents.filter(doc => doc.id !== id);
+        // Set selectedDocument to null if it matches the deleted document
+        if (state.selectedDocument?.id === id) {
+          state.selectedDocument = null;
+        }
+        // Update localStorage
+        localStorage.setItem('documents', JSON.stringify(state.documents));
+      },
   },
   extraReducers: (builder) => {
     builder
@@ -112,5 +131,5 @@ const documentSlice = createSlice({
   },
 });
 
-export const { updateDocumentContent, updateDocumentName, createDocument, selectDocument } = documentSlice.actions;
+export const { updateDocumentContent, updateDocumentName, createDocument, selectDocument, deleteDocument } = documentSlice.actions;
 export default documentSlice.reducer;

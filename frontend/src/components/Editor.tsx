@@ -13,10 +13,13 @@ const Editor: React.FC<EditorProps> = () => {
   const [content, setContent] = useState(selectedDocument ? selectedDocument.content : '');
 
   useEffect(() => {
-    if (selectedDocument) {
-      setContent(selectedDocument.content);
-    }
-  }, [selectedDocument]);
+  if (selectedDocument) {
+    setContent(selectedDocument.content);
+  } else {
+    // If selectedDocument is null, clear the content
+    setContent('');
+  }
+}, [selectedDocument]);
   const handleMarkdownChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newContent = e.target.value;
     setContent(newContent);
