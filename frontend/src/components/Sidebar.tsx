@@ -1,47 +1,47 @@
 import DocumentIcon from "../assets/icon-document.svg";
 import ThemeSwitch from "./ui/themeSwitcher";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { toggleSidebar } from "../redux/sidebarSlice";
 
-import {
-  createDocument,
-  selectDocuments,
-  loadDocuments,
-  setCurrentDocument,
-} from "../redux/documentSlice";
+import { createDocument, selectDocument } from '../redux/documentSlice';
+
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch();
-  const documents = useSelector(selectDocuments);
+
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const currentDocument = useSelector((state: RootState) => state.document.currentDocument);
+  const documents = useSelector((state: RootState) => state.document.documents);
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleNewDocumentClick = () => {
+    // Dispatch action to create a new document
+    dispatch(createDocument());
+    console.log ("New document created");
+  };
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
     if (
       sidebarRef.current &&
       !sidebarRef.current.contains(event.target as Node)
     ) {
       dispatch(toggleSidebar());
     }
-  };
-  useEffect(() => {
-    dispatch(loadDocuments());
-  }, [dispatch]);
-
+  }, [dispatch, sidebarRef]);
+  
   useEffect(() => {
     if (isOpen) {
       window.addEventListener("mousedown", handleClickOutside);
     } else {
       window.removeEventListener("mousedown", handleClickOutside);
     }
+  
+    // Clean up event listener on unmount
     return () => {
       window.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, dispatch]);
+    };}, [handleClickOutside, isOpen]);
 
   return (
     <aside
@@ -57,33 +57,25 @@ const Sidebar: React.FC = () => {
       </h2>
       <button
         className="mb-6 bg-orange hover:bg-orange-light transition duration-200 p-4 rounded-lg text-light font-roboto text-lg"
-        onClick={() => {
-          dispatch(createDocument());
-          console.log("A new document has been created");
-        }}>
+        onClick={handleNewDocumentClick}
+       >
         + New Document
       </button>
-      {documents.map((doc) => (
-        <button
-          key={doc.id}
-          className="flex items-center mb-6"
-          onClick={() => dispatch(setCurrentDocument(doc.id as never))}
-        >
-          <img
-            src={DocumentIcon}
-            alt="Document icon"
-            className="mr-4 w-4 h-auto"
-          />
-          <div className="text-left">
-            <span className="text-md font-roboto text-grey-1">
-              {new Date(doc.createdAt).toLocaleDateString()}
-            </span>
-            <h3 className={`text-md hover:text-orange transition duration-200 ${currentDocument && currentDocument.id === doc.id ? 'text-orange-light' : 'text-light'}`}>
-              {doc.name}
-            </h3>
-          </div>
-        </button>
-      ))}
+      {documents.map((document) => {
+        const date = new Date(document.createdAt);
+        const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+
+        return (
+          <button className="flex items-center mb-6" key={document.id} onClick={() => dispatch(selectDocument(document.id))}>
+            <img src={DocumentIcon} alt="Document icon" className="mr-4 w-4 h-auto" />
+            <div className="text-left">
+              <span className="text-md font-roboto text-grey-1">{formattedDate}</span>
+              <h3 className="text-md hover:text-orange transition duration-200">{document.name}</h3>
+            </div>
+          </button>
+        );
+      })}
+
       <div className="mt-auto flex items-center">
         <ThemeSwitch />
       </div>

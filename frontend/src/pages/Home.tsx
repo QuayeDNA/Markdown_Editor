@@ -1,10 +1,11 @@
 // src/pages/Home.tsx
-import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { togglePreview } from "../redux/previewSlice";
-import { RootState } from "../redux/store";
+import { RootState, AppDispatch } from "../redux/store";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { fetchDocument } from '../redux/documentSlice';
 
 import ShowPreviewIcon from "../assets/icon-show-preview.svg";
 import HidePreviewIcon from "../assets/icon-hide-preview.svg";
@@ -15,17 +16,21 @@ import Preview from "../components/Preview";
 const Home: React.FC = () => {
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const isPreviewExpanded = useSelector(
     (state: RootState) => state.preview.isPreviewExpanded
   );
- const [documentContent, setDocumentContent] = useState('');
+  
+  const documentContent = useSelector((state: RootState) => state.document.content);
+
+  useEffect(() => {
+    dispatch(fetchDocument());
+  }, [dispatch]);
 
   const handlePreviewClick = () => {
     console.log("Preview button clicked");
     dispatch(togglePreview());
   };
-
   console.log("isPreviewExpanded:", isPreviewExpanded);
 
   return (
@@ -57,9 +62,11 @@ const Home: React.FC = () => {
                 />
               </button>
             </header>
-            <div className="w-full overflow-y-auto" style={{ height: 'calc(100vh - 128px)' }}>
-            <Editor setDocumentContent={setDocumentContent} />
-</div>
+            <div
+              className="w-full overflow-y-auto"
+              style={{ height: "calc(100vh - 128px)" }}>
+              <Editor documentContent={documentContent} />
+            </div>
           </div>
           <div
             className={`border-l-2 h-full ${
@@ -81,8 +88,10 @@ const Home: React.FC = () => {
                 />
               </button>
             </header>
-            <div className="w-full overflow-y-auto" style={{ height: 'calc(100vh - 128px)' }}>
-              <Preview content={documentContent} />
+            <div
+              className="w-full overflow-y-auto"
+              style={{ height: "calc(100vh - 128px)" }}>
+              <Preview />
             </div>
           </div>
         </main>
