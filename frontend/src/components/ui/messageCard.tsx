@@ -25,15 +25,15 @@ const MessageCard: React.FC = () => {
     };
   }, [showMessage, dispatch]);
 
-  return (
-    <div className={`fixed bottom-4 right-4 z-50 rounded-lg  ${isDarkMode ? 'bg-dark-1 text-light-4 border border-light' : 'bg-light text-grey-3 border border-grey-1'} ${showMessage ? 'block' : 'hidden'}`}>
-      <div className="rounded-lg shadow-md p-4">
-        {messages.map((message, index) => (
-          <div key={index} className="mb-2">{message}</div>
-        ))}
-      </div>
+ return (
+  <div className={`fixed bottom-4 right-4 z-50 rounded-lg transition-all duration-500 ease-in-out transform ${showMessage ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} ${isDarkMode ? 'bg-dark-1 text-light-4 border border-light' : 'bg-light text-grey-3 border border-grey-1'}`}>
+    <div className="rounded-lg shadow-md p-4">
+      {messages.map((message, index) => (
+        <div key={index} className="mb-2">{message}</div>
+      ))}
     </div>
-  );
+  </div>
+)
 };
 
 export default MessageCard;
