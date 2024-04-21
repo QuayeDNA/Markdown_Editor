@@ -1,5 +1,4 @@
-// src/components/Modal.tsx
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { deleteDocument } from '../../redux/documentSlice';
@@ -13,6 +12,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ onClose, documentId }) => {
   const dispatch = useDispatch();
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const handleConfirmDelete = () => {
     // Dispatch action to delete the document
@@ -22,13 +22,22 @@ const Modal: React.FC<ModalProps> = ({ onClose, documentId }) => {
     dispatch(addMessage('Document deleted'));
   };
 
+  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    // Check if the click occurred outside the modal content
+    if (event.target === overlayRef.current) {
+      onClose(); // Close the modal
+    }
+  };
+
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
       <div
+        ref={overlayRef}
+        onClick={handleOverlayClick}
         style={{ width: "150%", height: "150%" }}
         className="absolute bg-grey-3 opacity-50"></div>
       <div className={`p-4 rounded-lg shadow-lg z-10 w-[20%] ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}>
-        <h2 className="text-3xl font-bold mb-4">Confirm Deletion</h2>
+        <h2 className="text-3xl font-bold mb-4">Delete this document?</h2>
         <p className="mb-4">
           Are you sure you want to delete this document? This action cannot be
           reversed

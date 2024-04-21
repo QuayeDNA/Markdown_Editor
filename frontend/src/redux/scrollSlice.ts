@@ -1,23 +1,28 @@
+// scrollSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ScrollState {
-  position: number;
+  editorScrollTop: number;
+  previewScrollTop: number;
 }
 
 const initialState: ScrollState = {
-  position: 0,
+  editorScrollTop: 0,
+  previewScrollTop: 0,
 };
 
-export const scrollSlice = createSlice({
+const scrollSlice = createSlice({
   name: 'scroll',
   initialState,
   reducers: {
-    setPosition: (state, action: PayloadAction<number>) => {
-      state.position = action.payload;
+    updateEditorScrollTop(state, action: PayloadAction<number>) {
+      state.editorScrollTop = action.payload;
+    },
+    updatePreviewScrollTop(state, action: PayloadAction<number>) {
+      state.previewScrollTop = action.payload;
     },
   },
 });
 
-export const { setPosition } = scrollSlice.actions;
-
+export const { updateEditorScrollTop, updatePreviewScrollTop } = scrollSlice.actions;
 export default scrollSlice.reducer;
