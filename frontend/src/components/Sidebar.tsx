@@ -48,8 +48,8 @@ const Sidebar: React.FC = () => {
   return (
     <aside
       ref={sidebarRef}
-      className={`flex flex-col justify-between w-64 bg-dark-2 fixed h-screen p-6 transition-transform duration-200 ease-in-out ${
-        isOpen ? "transform translate-x-0" : "transform -translate-x-64"
+      className={`flex flex-col justify-between w-80 bg-dark-2 fixed h-screen p-6 transition-transform duration-200 ease-in-out ${
+        isOpen ? "transform translate-x-0" : "transform -translate-x-80"
       }`}
     >
       <h1 className="mb-6 text-light text-md font-roboto font-bold tracking-extra-wide lg:hidden">
@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
         MY DOCUMENTS
       </h2>
       <button
-        className="mb-6 bg-orange hover:bg-orange-light transition duration-200 p-4 rounded-lg text-light font-roboto text-lg"
+        className="mb-6 bg-orange hover:bg-orange-light transition duration-200 p-3 rounded-lg text-light font-roboto text-lg"
         onClick={handleNewDocumentClick}
       >
         + New Document

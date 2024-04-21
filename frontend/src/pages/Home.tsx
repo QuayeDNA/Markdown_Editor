@@ -15,7 +15,7 @@ import Preview from "../components/Preview";
 
 const Home: React.FC = () => {
 
-  localStorage.clear();
+  // localStorage.clear();
 
 
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
       <Sidebar />
       <div
         className={`flex flex-col w-full transition-transform duration-200 ease-in-out ${
-          isOpen ? "transform translate-x-64" : ""
+          isOpen ? "transform translate-x-80" : ""
         }`}>
         <Navbar />
 
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
               className={`transition duration-300 flex items-center justify-between h-12 px-4 ${
                 isDarkMode ? "bg-dark-2 text-light-4" : "bg-light-2 text-grey-1"
               }`}>
-              <span className="font-roboto font-light">MARKDOWN</span>
+              <span className="font-roboto font-light tracking-widest">MARKDOWN</span>
               <button onClick={handlePreviewClick} className="w-4 lg:hidden">
                 <img
                   src={isPreviewExpanded ? HidePreviewIcon : ShowPreviewIcon}
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
               className={`transition duration-300 flex items-center justify-between h-12 px-4 ${
                 isDarkMode ? "bg-dark-2 text-light-4" : "bg-light-2 text-grey-1"
               }`}>
-              <span className="font-roboto font-light">Preview</span>
+              <span className="font-roboto font-light tracking-widest">PREVIEW</span>
               <button onClick={handlePreviewClick} className="w-4">
                 <img
                   src={isPreviewExpanded ? HidePreviewIcon : ShowPreviewIcon}

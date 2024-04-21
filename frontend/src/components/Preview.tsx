@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import gfm from "remark-gfm"; // Import the plugin
+import remarkGfm from "remark-gfm"; // Import the plugin
 import rehypeRaw from "rehype-raw";
 import StyledMarkdown from "../utils/styledMarkdown";
 
@@ -26,7 +26,7 @@ const Preview: React.FC<PreviewProps> = () => {
         isPreviewExpanded ? "md:mx-[400px] mx-auto" : ""
       } ${isDarkMode ? "bg-dark-1 text-light-4" : "bg-light text-grey-3"}`}>
       <StyledMarkdown
-      remarkPlugins={[gfm]}
+      remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       skipHtml={false}
       unwrapDisallowed={false}
