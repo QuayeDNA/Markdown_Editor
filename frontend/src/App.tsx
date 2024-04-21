@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './redux/store';
 import { toggleTheme } from './redux/themeSlice';
+import MessageCard from "./components/ui/messageCard";
+
+import './App.css'
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +27,7 @@ function App() {
   return (
     <div>
       <Home />
+      <MessageCard/>
     </div>
   )
 }

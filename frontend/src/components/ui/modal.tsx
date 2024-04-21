@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { deleteDocument } from '../../redux/documentSlice';
+import { addMessage } from "../../redux/messageSlice";
 
 interface ModalProps {
   onClose: () => void;
@@ -18,6 +19,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, documentId }) => {
     dispatch(deleteDocument({ id: documentId }));
     // Close the modal
     onClose();
+    dispatch(addMessage('Document deleted'));
   };
 
   return (
@@ -27,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, documentId }) => {
         className="absolute bg-grey-3 opacity-50"></div>
       <div className={`p-4 rounded-lg shadow-lg z-10 w-[20%] ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}>
         <h2 className="text-3xl font-bold mb-4">Confirm Deletion</h2>
-        <p className="text-light-2 mb-4">
+        <p className="mb-4">
           Are you sure you want to delete this document? This action cannot be
           reversed
         </p>

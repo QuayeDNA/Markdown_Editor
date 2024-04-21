@@ -38,6 +38,7 @@ type StoredDocument = {
 }[];
 
 const savedDocuments = localStorage.getItem('documents');
+const lastSelectedDocumentId = localStorage.getItem('lastSelectedDocumentId');
 const initialState: DocumentState = {
   content: '',
   status: 'idle',
@@ -46,8 +47,12 @@ const initialState: DocumentState = {
   selectedDocument: null,
 };
 
+if (lastSelectedDocumentId && savedDocuments) {
+  initialState.selectedDocument = JSON.parse(savedDocuments).find((doc: Document) => doc.id === lastSelectedDocumentId);
+}
+
 export const fetchDocument = createAsyncThunk('document/fetchDocument', async () => {
-  const response = await fetch('../../public/data.json');
+  const response = await fetch('../../data.json');
   const data = await response.json();
   return data.content;
 });
@@ -94,8 +99,9 @@ const documentSlice = createSlice({
       localStorage.setItem('documents', JSON.stringify(state.documents));
     },
     selectDocument: (state, action: PayloadAction<string>) => {
-      // Select a document by ID
-      state.selectedDocument = state.documents.find(doc => doc.id === action.payload) || null;
+      const selectedDocument = state.documents.find(doc => doc.id === action.payload) || null;
+      state.selectedDocument = selectedDocument;
+      localStorage.setItem('lastSelectedDocumentId', action.payload);
     },
     deleteDocument: (state, action: PayloadAction<DeleteDocumentPayload>) => {
         const { id } = action.payload;
@@ -105,6 +111,7 @@ const documentSlice = createSlice({
         if (state.selectedDocument?.id === id) {
           state.selectedDocument = null;
         }
+        
         // Update localStorage
         localStorage.setItem('documents', JSON.stringify(state.documents));
       },
@@ -116,13 +123,20 @@ const documentSlice = createSlice({
       })
       .addCase(fetchDocument.fulfilled, (state, action: PayloadAction<string>) => {
         state.status = 'succeeded';
-        // Set the content of the data.json file to the selectedDocument
-        state.selectedDocument = {
-          id: 'dataJson', // You can use a unique identifier here
-          name: 'Welcome',
-          createdAt: new Date().toISOString(),
-          content: action.payload, // Set the content here
-        };
+        // Check if there is a last selected document ID stored in localStorage
+        const lastSelectedDocumentId = localStorage.getItem('lastSelectedDocumentId');
+        if (lastSelectedDocumentId && state.documents.find(doc => doc.id === lastSelectedDocumentId)) {
+          // If a last selected document exists, set selectedDocument to it
+          state.selectedDocument = state.documents.find(doc => doc.id === lastSelectedDocumentId) || null;
+        } else {
+          // Otherwise, set the default "Welcome" document
+          state.selectedDocument = {
+            id: 'dataJson', // You can use a unique identifier here
+            name: 'Welcome',
+            createdAt: new Date().toISOString(),
+            content: action.payload, // Set the content here
+          };
+        }
       })
       .addCase(fetchDocument.rejected, (state, action) => {
         state.status = 'failed';

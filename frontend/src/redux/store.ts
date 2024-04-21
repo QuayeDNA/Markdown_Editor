@@ -5,6 +5,7 @@ import themeReducer from './themeSlice';
 import previewReducer from './previewSlice';
 import scrollReducer from './scrollSlice';
 import documentReducer from './documentSlice';
+import messageSlice from './messageSlice';
 
 
 const store = configureStore({
@@ -14,7 +15,7 @@ const store = configureStore({
     preview: previewReducer,
     scroll: scrollReducer,
     document: documentReducer,
-
+    messages: messageSlice
   },
 });
 

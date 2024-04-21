@@ -1,0 +1,32 @@
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  }
+  
+  /* WebKit-based browsers */
+  ::-webkit-scrollbar {
+    width: 12px; /* Adjust the width of the scrollbar */
+  }
+  
+  /* Define styles for the scrollbar track */
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color); /* Use theme-based background color */
+  }
+  
+  /* Define styles for the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color); /* Use theme-based thumb color */
+    border-radius: 6px; /* Adjust the border radius of the thumb */
+  }
+  
+  /* Optionally define styles for scrollbar corners */
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track-color); /* Use theme-based background color */
+  }
+  
+  /* Optionally define styles for scrollbar buttons */
+  ::-webkit-scrollbar-button {
+    background: var(--scrollbar-track-color); /* Use theme-based background color */
+  }
+  

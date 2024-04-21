@@ -7,6 +7,7 @@ import { RootState } from "../redux/store";
 import { toggleSidebar } from "../redux/sidebarSlice";
 
 import { createDocument, selectDocument } from '../redux/documentSlice';
+import { addMessage } from '../redux/documentActions';
 
 
 const Sidebar: React.FC = () => {
@@ -19,7 +20,8 @@ const Sidebar: React.FC = () => {
   const handleNewDocumentClick = () => {
     // Dispatch action to create a new document
     dispatch(createDocument());
-    console.log ("New document created");
+    // Dispatch action to add message
+    dispatch(addMessage('New document created'));
   };
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
@@ -48,7 +50,8 @@ const Sidebar: React.FC = () => {
       ref={sidebarRef}
       className={`flex flex-col justify-between w-64 bg-dark-2 fixed h-screen p-6 transition-transform duration-200 ease-in-out ${
         isOpen ? "transform translate-x-0" : "transform -translate-x-64"
-      }`}>
+      }`}
+    >
       <h1 className="mb-6 text-light text-md font-roboto font-bold tracking-extra-wide lg:hidden">
         MARKDOWN
       </h1>
@@ -58,24 +61,25 @@ const Sidebar: React.FC = () => {
       <button
         className="mb-6 bg-orange hover:bg-orange-light transition duration-200 p-4 rounded-lg text-light font-roboto text-lg"
         onClick={handleNewDocumentClick}
-       >
+      >
         + New Document
       </button>
-      {documents.map((document) => {
-        const date = new Date(document.createdAt);
-        const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+      <div className="overflow-y-auto max-h-[calc(100vh-252px)]"> {/* Adjust max height as needed */}
+        {documents.map((document) => {
+          const date = new Date(document.createdAt);
+          const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
 
-        return (
-          <button className="flex items-center mb-6" key={document.id} onClick={() => dispatch(selectDocument(document.id))}>
-            <img src={DocumentIcon} alt="Document icon" className="mr-4 w-4 h-auto" />
-            <div className="text-left">
-              <span className="text-md font-roboto text-grey-1">{formattedDate}</span>
-              <h3 className="text-md hover:text-orange transition duration-200">{document.name}</h3>
-            </div>
-          </button>
-        );
-      })}
-
+          return (
+            <button className="flex items-center mb-6" key={document.id} onClick={() => dispatch(selectDocument(document.id))}>
+              <img src={DocumentIcon} alt="Document icon" className="mr-4 w-4 h-auto" />
+              <div className="text-left">
+                <span className="text-md font-roboto text-grey-1">{formattedDate}</span>
+                <h3 className="text-md text-light hover:text-orange transition duration-200">{document.name}</h3>
+              </div>
+            </button>
+          );
+        })}
+      </div>
       <div className="mt-auto flex items-center">
         <ThemeSwitch />
       </div>
