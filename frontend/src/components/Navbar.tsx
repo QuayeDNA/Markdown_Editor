@@ -54,11 +54,8 @@ const Navbar: React.FC = () => {
       setNewDocumentName(selectedDocument.name);
     }
   };
-  
 
-  const handleDocumentNameChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleDocumentNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewDocumentName(e.target.value);
   };
 
@@ -103,8 +100,7 @@ const Navbar: React.FC = () => {
       <div className="flex items-center">
         <button
           className="mr-2 bg-grey-3 p-6 hover:bg-grey-2 transition duration-200 h-full min-h-20"
-          onClick={() => dispatch(toggleSidebar())}
-        >
+          onClick={() => dispatch(toggleSidebar())}>
           <img src={isOpen ? CloseIcon : MenuIcon} alt="Menu" />
         </button>
         <h1 className="m-4 text-light text-md font-roboto font-bold tracking-extra-wide hidden lg:block">
@@ -118,28 +114,28 @@ const Navbar: React.FC = () => {
               Document Name
             </span>
             {selectedDocument ? (
-  isEditingName ? (
-    <input
-      type="text"
-      value={newDocumentName}
-      onChange={handleDocumentNameChange}
-      onKeyDown={handleDocumentNameKeyDown}
-      autoFocus
-      className="w-full bg-transparent focus:outline-none focus:border-b-2 focus:border-white pb-1 text-light"
-      style={{ caretColor: "orange" }}
-    />
-  ) : (
-    <button
-      className="text-light font-roboto"
-      onClick={handleDocumentNameClick}
-    >
-      {selectedDocument.name}
-    </button>
-  )
-) : (
-  <span className="text-light font-roboto">No document selected</span>
-)}
-
+              isEditingName ? (
+                <input
+                  type="text"
+                  value={newDocumentName}
+                  onChange={handleDocumentNameChange}
+                  onKeyDown={handleDocumentNameKeyDown}
+                  autoFocus
+                  className="w-full bg-transparent focus:outline-none focus:border-b-2 focus:border-white pb-1 text-light"
+                  style={{ caretColor: "orange" }}
+                />
+              ) : (
+                <button
+                  className="text-light font-roboto"
+                  onClick={handleDocumentNameClick}>
+                  {selectedDocument.name}
+                </button>
+              )
+            ) : (
+              <span className="text-light font-roboto">
+                No document selected
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -158,8 +154,7 @@ const Navbar: React.FC = () => {
         </button>
         <button
           className="flex flex-row items-center m-4 p-4 bg-orange rounded-md hover:bg-orange-light transition duration-200"
-          onClick={handleSaveChanges}
-        >
+          onClick={handleSaveChanges}>
           <img src={SaveIcon} alt="Save icon" className="h-4 w-auto md:me-2" />
           <span className="text-light text-md hidden md:block">
             Save Changes
