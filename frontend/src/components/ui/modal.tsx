@@ -37,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, documentId }) => {
         style={{ width: "150%", height: "150%" }}
         className="absolute bg-grey-3 opacity-50"></div>
       <div className={`p-4 rounded-lg shadow-lg z-10 w-[20%] ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}>
-        <h2 className="text-3xl font-bold mb-4">Delete this document?</h2>
+        <div className="text-xl font-bold mb-4">Delete this document?</div>
         <p className="mb-4">
           Are you sure you want to delete this document? This action cannot be
           reversed

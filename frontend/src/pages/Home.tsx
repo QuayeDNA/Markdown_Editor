@@ -15,9 +15,6 @@ import Preview from "../components/Preview";
 
 const Home: React.FC = () => {
 
-  // localStorage.clear();
-
-
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   const dispatch = useDispatch<AppDispatch>();
