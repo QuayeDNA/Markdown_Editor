@@ -49,9 +49,12 @@ const Navbar: React.FC = () => {
   };
 
   const handleDocumentNameClick = () => {
-    setIsEditingName(true);
-    setNewDocumentName(selectedDocument ? selectedDocument.name : "");
+    if (selectedDocument) {
+      setIsEditingName(true);
+      setNewDocumentName(selectedDocument.name);
+    }
   };
+  
 
   const handleDocumentNameChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -114,26 +117,29 @@ const Navbar: React.FC = () => {
             <span className="text-sm font-roboto font-light text-grey-1 hidden sm:block">
               Document Name
             </span>
-            {isEditingName ? (
-              <input
-                type="text"
-                value={newDocumentName}
-                onChange={handleDocumentNameChange}
-                onKeyDown={handleDocumentNameKeyDown}
-                autoFocus
-                className="w-full bg-transparent focus:outline-none focus:border-b-2 focus:border-white pb-1 text-light"
-                style={{ caretColor: "orange" }}
-              />
-            ) : (
-              <button
-                className="text-light font-roboto"
-                onClick={handleDocumentNameClick}
-              >
-                {selectedDocument
-                  ? selectedDocument.name
-                  : "No document selected"}
-              </button>
-            )}
+            {selectedDocument ? (
+  isEditingName ? (
+    <input
+      type="text"
+      value={newDocumentName}
+      onChange={handleDocumentNameChange}
+      onKeyDown={handleDocumentNameKeyDown}
+      autoFocus
+      className="w-full bg-transparent focus:outline-none focus:border-b-2 focus:border-white pb-1 text-light"
+      style={{ caretColor: "orange" }}
+    />
+  ) : (
+    <button
+      className="text-light font-roboto"
+      onClick={handleDocumentNameClick}
+    >
+      {selectedDocument.name}
+    </button>
+  )
+) : (
+  <span className="text-light font-roboto">No document selected</span>
+)}
+
           </div>
         </div>
       </div>
