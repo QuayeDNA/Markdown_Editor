@@ -98,11 +98,16 @@ const Navbar: React.FC = () => {
   return (
     <header className="flex justify-between items-center bg-dark-3 top-0 left-0 right-0 h-20 sticky z-10">
       <div className="flex items-center">
-        <button
-          className="bg-grey-3 p-3 md:p-6 hover:bg-grey-2 transition duration-200 h-full min-h-20 mr-2"
-          onClick={() => dispatch(toggleSidebar())}>
-          <img src={isOpen ? CloseIcon : MenuIcon} alt="Menu" />
-        </button>
+      <button
+  className="close-button bg-grey-3 p-3 md:p-6 hover:bg-grey-2 transition duration-200 h-full min-h-20 mr-2"
+  onClick={() => {
+    dispatch(toggleSidebar());
+    console.log(`Sidebar is ${isOpen ? 'closed' : 'opened'}`);
+  }}>
+  <img src={isOpen ? CloseIcon : MenuIcon} alt="Menu" className="close-button" />
+</button>
+
+
         <h1 className="m-4 text-light text-md font-roboto font-bold tracking-extra-wide hidden lg:block">
           MARKDOWN
         </h1>

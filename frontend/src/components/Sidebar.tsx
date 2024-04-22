@@ -27,11 +27,13 @@ const Sidebar: React.FC = () => {
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (
       sidebarRef.current &&
-      !sidebarRef.current.contains(event.target as Node)
+      !sidebarRef.current.contains(event.target as Node) &&
+      !(event.target as HTMLElement).classList.contains('close-button')
     ) {
       dispatch(toggleSidebar());
     }
   }, [dispatch, sidebarRef]);
+  
   
   useEffect(() => {
     if (isOpen) {
