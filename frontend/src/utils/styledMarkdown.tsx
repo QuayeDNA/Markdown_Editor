@@ -170,7 +170,7 @@ const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
   h4,
   h5,
   h6 {
-    margin: 2em 1em 0.5em 0em;
+    margin: 1.5em 0em 0.5em 0em;
   }
 `;
 
