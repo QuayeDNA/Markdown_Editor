@@ -56,7 +56,7 @@ const Home: React.FC = () => {
                 isDarkMode ? "bg-dark-2 text-light-4" : "bg-light-2 text-grey-1"
               }`}>
               <span className="font-roboto font-light tracking-widest">MARKDOWN</span>
-              <button onClick={handlePreviewClick} className="w-4 lg:hidden">
+              <button onClick={handlePreviewClick} className="w-4 md:hidden">
                 <img
                   src={isPreviewExpanded ? HidePreviewIcon : ShowPreviewIcon}
                   alt="Preview Icon"
