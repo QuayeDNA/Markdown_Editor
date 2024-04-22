@@ -75,7 +75,7 @@ const Home: React.FC = () => {
             } hidden lg:block`}></div>
           <div
             className={`flex-1 flex flex-col w-full transition-width duration-300 ${
-              isPreviewExpanded ? "w-full" : "w-0 hidden lg:flex"
+              isPreviewExpanded ? "w-full" : "w-0 hidden md:flex"
             }`}>
             <header
               className={`transition duration-300 flex items-center justify-between h-12 px-4 ${
