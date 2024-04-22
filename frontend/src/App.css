@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 /* Firefox */
 * {
     scrollbar-width: thin;
@@ -29,4 +30,8 @@
   ::-webkit-scrollbar-button {
     background: var(--scrollbar-track-color); /* Use theme-based background color */
   }
+
   
+  body {
+  font-family: 'Roboto', sans-serif;
+}

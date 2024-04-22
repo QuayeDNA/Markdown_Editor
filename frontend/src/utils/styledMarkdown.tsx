@@ -51,6 +51,7 @@ const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
   & p {
     font-size: 1em;
     line-height: 1.5;
+    margin: 0.5em auto;
   }
 
   & code {
@@ -78,7 +79,6 @@ const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
     padding: 0.5em;
     border-radius: 5px;
     border-left: 4px solid #E46643;
-    padding-left: 1em;
     margin-left: 0;
   }
 
@@ -116,7 +116,6 @@ const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
   }
 
   & a {
-    color: #0070f3;
     text-decoration: underline;
   }
 
@@ -156,7 +155,7 @@ const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
 
   /* Add some space between paragraphs */
   p + p {
-    margin-top: 1em;
+    margin-top: 2em;
   }
 
   /* Add some space between list items */
@@ -171,7 +170,7 @@ const StyledMarkdown = styled(ReactMarkdown)<StyledMarkdownProps>`
   h4,
   h5,
   h6 {
-    margin-bottom: 1em;
+    margin: 2em 1em 0.5em 0em;
   }
 `;
 
