@@ -6,6 +6,7 @@ interface DocumentState {
   error: string | null;
   documents: Document[];
   selectedDocument: Document | null;
+  type: 'create' | 'save' | 'delete' | null;
 }
 
 interface UpdateDocumentContentPayload {
@@ -45,6 +46,7 @@ const initialState: DocumentState = {
   error: null,
   documents: savedDocuments ? (JSON.parse(savedDocuments) as StoredDocument) : [],
   selectedDocument: null,
+  type: null,
 };
 
 if (lastSelectedDocumentId && savedDocuments) {
@@ -71,6 +73,7 @@ const documentSlice = createSlice({
         if (state.selectedDocument?.id === id) {
           state.selectedDocument.content = content;
         }
+        state.type = 'save';
         localStorage.setItem('documents', JSON.stringify(state.documents));
       }
     },
@@ -96,6 +99,7 @@ const documentSlice = createSlice({
         content: '',
       };
       state.documents.push(newDocument);
+      state.type = 'create';
       localStorage.setItem('documents', JSON.stringify(state.documents));
     },
     selectDocument: (state, action: PayloadAction<string>) => {
@@ -111,7 +115,7 @@ const documentSlice = createSlice({
         if (state.selectedDocument?.id === id) {
           state.selectedDocument = null;
         }
-        
+        state.type = 'delete';
         // Update localStorage
         localStorage.setItem('documents', JSON.stringify(state.documents));
       },
