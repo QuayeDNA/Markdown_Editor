@@ -50,8 +50,8 @@ const Sidebar: React.FC = () => {
   return (
     <aside
       ref={sidebarRef}
-      className={`flex flex-col justify-between w-80 bg-dark-2 fixed h-screen p-6 transition-transform duration-200 ease-in-out ${
-        isOpen ? "transform translate-x-0" : "transform -translate-x-80"
+      className={`flex flex-col justify-between w-[250px] bg-dark-2 fixed h-screen p-6 transition-transform duration-200 ease-in-out ${
+        isOpen ? "transform translate-x-0" : "transform -translate-x-[250px]"
       }`}
     >
       <h1 className="mb-6 text-light text-md font-roboto font-bold tracking-extra-wide lg:hidden">

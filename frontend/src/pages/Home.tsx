@@ -29,10 +29,8 @@ const Home: React.FC = () => {
   }, [dispatch]);
 
   const handlePreviewClick = () => {
-    console.log("Preview button clicked");
     dispatch(togglePreview());
   };
-  console.log("isPreviewExpanded:", isPreviewExpanded);
 
   return (
     <div
@@ -42,7 +40,7 @@ const Home: React.FC = () => {
       <Sidebar />
       <div
         className={`flex flex-col w-full transition-transform duration-200 ease-in-out ${
-          isOpen ? "transform translate-x-80" : ""
+          isOpen ? "transform translate-x-[250px]" : ""
         }`}>
         <Navbar />
 

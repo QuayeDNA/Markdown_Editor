@@ -96,22 +96,24 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="flex justify-between items-center bg-dark-3 top-0 left-0 right-0 h-20 sticky z-10">
+    <header className="flex justify-between items-center bg-dark-3 top-0 left-0 right-0 h-16 sticky z-10">
       <div className="flex items-center">
-      <button
-  className="close-button bg-grey-3 p-3 md:p-6 hover:bg-grey-2 transition duration-200 h-full min-h-20 mr-2"
-  onClick={() => {
-    dispatch(toggleSidebar());
-    console.log(`Sidebar is ${isOpen ? 'closed' : 'opened'}`);
-  }}>
-  <img src={isOpen ? CloseIcon : MenuIcon} alt="Menu" className="close-button" />
-</button>
-
+        <button
+          className="close-button bg-grey-3 p-2 md:p-4 hover:bg-grey-2 transition duration-200 h-full min-h-16 mr-2"
+          onClick={() => {
+            dispatch(toggleSidebar());
+          }}>
+          <img
+            src={isOpen ? CloseIcon : MenuIcon}
+            alt="Menu"
+            className="close-button"
+          />
+        </button>
 
         <h1 className="m-4 text-light text-md font-roboto font-bold tracking-extra-wide hidden lg:block">
           MARKDOWN
         </h1>
-        <div className="border-l-2 h-14 mr-2 md:mr-4  border-grey-2 hidden lg:block"></div>
+        <div className="border-l-2 h-10 mr-2 md:mr-4  border-grey-2 hidden lg:block"></div>
         <div className="flex flex-row items-center">
           <img src={DocumentIcon} alt="Document icon" className=" m-2 md:m-4" />
           <div className="ml-2">
@@ -146,21 +148,25 @@ const Navbar: React.FC = () => {
       </div>
       <div className="flex flex-row items-center">
         {selectedDocument && (
-          <button onClick={handleDownload}>
+          <button
+            className="flex flex-row items-center mr-2 md:mr-6"
+            onClick={handleDownload}>
             <img
               src={DownloadIcon}
               alt="Download Icon"
-              className="mr-2 md:mr-4 h-6 w-auto "
+              className="h-auto w-7"
             />
           </button>
         )}
-        <button className="mr-2 md:mr-4" onClick={handleDelete}>
-          <img src={DeleteIcon} alt="Delete icon" />
+        <button
+          className="flex flex-row items-center mr-4 md:mr-8"
+          onClick={handleDelete}>
+          <img src={DeleteIcon} alt="Delete icon" className="h-auto w-5" />
         </button>
         <button
-          className="flex flex-row items-center mr-2 md:mr-4 md:p-4 p-2 bg-orange rounded-md hover:bg-orange-light transition duration-200"
+          className="flex flex-row items-center mr-2 p-3 bg-orange rounded-md hover:bg-orange-light transition duration-200"
           onClick={handleSaveChanges}>
-          <img src={SaveIcon} alt="Save icon" className="h-4 w-auto md:me-2" />
+          <img src={SaveIcon} alt="Save icon" className="h-auto w-5 md:me-2" />
           <span className="text-light text-md hidden md:block">
             Save Changes
           </span>
