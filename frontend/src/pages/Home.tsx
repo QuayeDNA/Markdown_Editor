@@ -50,7 +50,7 @@ const Home: React.FC = () => {
               isPreviewExpanded ? "hidden" : "lg:flex"
             }`}>
             <header
-              className={`transition duration-300 flex items-center justify-between h-12 px-4 ${
+              className={`transition duration-300 flex items-center justify-between h-10 px-4 ${
                 isDarkMode ? "bg-dark-2 text-light-4" : "bg-light-2 text-grey-1"
               }`}>
               <span className="font-roboto font-light tracking-widest">MARKDOWN</span>
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
               isPreviewExpanded ? "w-full" : "w-0 hidden md:flex"
             }`}>
             <header
-              className={`transition duration-300 flex items-center justify-between h-12 px-4 ${
+              className={`transition duration-300 flex items-center justify-between h-10 px-4 ${
                 isDarkMode ? "bg-dark-2 text-light-4" : "bg-light-2 text-grey-1"
               }`}>
               <span className="font-roboto font-light tracking-widest">PREVIEW</span>
