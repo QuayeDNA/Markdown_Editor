@@ -2,6 +2,8 @@
 
 This is a solution to the in-browser-Markdown-Editor.
 
+It is a full ###Frontend Project
+
 ![Design preview for the In-browser markdown editor coding challenge](./screenShots/ScreenShot.png)
 
 ## Table of contents 📚
