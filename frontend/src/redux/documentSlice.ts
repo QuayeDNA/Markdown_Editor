@@ -125,23 +125,22 @@ const documentSlice = createSlice({
       .addCase(fetchDocument.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchDocument.fulfilled, (state, action: PayloadAction<string>) => {
-        state.status = 'succeeded';
-        // Check if there is a last selected document ID stored in localStorage
-        const lastSelectedDocumentId = localStorage.getItem('lastSelectedDocumentId');
-        if (lastSelectedDocumentId && state.documents.find(doc => doc.id === lastSelectedDocumentId)) {
-          // If a last selected document exists, set selectedDocument to it
-          state.selectedDocument = state.documents.find(doc => doc.id === lastSelectedDocumentId) || null;
-        } else {
-          // Otherwise, set the default "Welcome" document
-          state.selectedDocument = {
-            id: 'dataJson', // You can use a unique identifier here
-            name: 'Welcome',
-            createdAt: new Date().toISOString(),
-            content: action.payload, // Set the content here
-          };
-        }
-      })
+     .addCase(fetchDocument.fulfilled, (state, action: PayloadAction<string>) => {
+  state.status = 'succeeded';
+  const lastSelectedDocumentId = localStorage.getItem('lastSelectedDocumentId');
+  if (lastSelectedDocumentId && state.documents.find(doc => doc.id === lastSelectedDocumentId)) {
+    state.selectedDocument = state.documents.find(doc => doc.id === lastSelectedDocumentId) || null;
+  } else {
+    const welcomeDocument = {
+      id: 'dataJson', // You can use a unique identifier here
+      name: 'Welcome',
+      createdAt: new Date().toISOString(),
+      content: action.payload, // Set the content here
+    };
+    state.selectedDocument = welcomeDocument;
+    state.documents.push(welcomeDocument); // Add the "Welcome" document to the documents array
+  }
+})
       .addCase(fetchDocument.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message ?? null;
