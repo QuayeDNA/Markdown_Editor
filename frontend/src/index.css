@@ -2,3 +2,47 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Roboto */
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Roboto Mono */
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('./assets/fonts/Roboto_Mono/static/RobotoMono-Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('./assets/fonts/Roboto_Mono/static/RobotoMono-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Roboto Slab */
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('./assets/fonts/Roboto_Slab/static/RobotoSlab-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('./assets/fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
