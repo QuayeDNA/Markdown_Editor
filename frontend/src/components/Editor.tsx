@@ -33,7 +33,7 @@ const Editor: React.FC<EditorProps> = () => {
   return (
     <div className="flex h-full overflow-y-auto">
       <textarea
-         className={`font-roboto-mono  transition duration-300 flex-1 py-8 px-4 focus:outline-none  ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}
+         className={`font-roboto-mono  transition duration-300 flex-1 p-4 focus:outline-none  ${isDarkMode ? 'bg-dark-1 text-light-4' : 'bg-light text-grey-3'}`}
          value={content}
          onChange={handleMarkdownChange}
         placeholder='Enter your markdown here...'

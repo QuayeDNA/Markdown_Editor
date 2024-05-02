@@ -22,7 +22,7 @@ const Preview: React.FC<PreviewProps> = () => {
 
   return (
     <div
-      className={`font-roboto-slab transition duration-300 flex-1 py-8 px-4 ${
+      className={`font-roboto-slab transition duration-300 flex-1 p-4 ${
         isPreviewExpanded ? "md:w-2/4 mx-auto" : ""
       } ${isDarkMode ? "bg-dark-1 text-light-4" : "bg-light text-grey-3"}`}>
       <StyledMarkdown
